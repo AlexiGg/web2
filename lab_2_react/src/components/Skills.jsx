@@ -2,16 +2,30 @@ function Skills() {
   const skills = ["SQL", "OSINT", "Google Sheets", "Excel", "Командна робота", "Англійська B1"];
   
   return (
-    <section className="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-600">
-      <h2 className="text-xl font-bold mb-4 text-blue-600 uppercase">Навички</h2>
-      <div className="flex flex-wrap gap-2">
-        {skills.map((skill) => (
-          <span key={skill} className="bg-slate-100 text-slate-700 px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-blue-600 hover:text-white hover:scale-105 transition-all cursor-default">
-            {skill}
-          </span>
-        ))}
-      </div>
-    </section>
+    <section className="
+  bg-white dark:bg-slate-800
+  border-l-4 border-blue-600
+  p-6 rounded-xl shadow-md mb-6
+">
+  <h2 className="text-blue-600 dark:text-blue-400 font-bold uppercase mb-4">
+    Навички
+  </h2>
+
+  <div className="flex flex-wrap gap-2">
+    {["SQL", "OSINT", "Google Sheets", "Excel", "Командна робота", "Англійська B1"].map(skill => (
+      <span
+        key={skill}
+        className="
+          bg-slate-100 dark:bg-slate-700
+          text-slate-700 dark:text-slate-200
+          px-3 py-1 rounded-lg text-sm
+        "
+      >
+        {skill}
+      </span>
+    ))}
+  </div>
+</section>
   );
 }
 export default Skills;

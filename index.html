@@ -1,61 +1,212 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" id="html-root">
 <head>
-    <meta charset="UTF-8">
-    <title>Моє резюме</title>
-
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Моє резюме</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div class="container">
+<button id="theme-btn">☾ Нічна</button>
 
-        <header>
-            <h1>Легенчук Олександр </h1>
-            <p>м. Львів, Україна | +380 96 910 78 22</p>           
-            <p>oleksandr.lehenchuk.kb.2023@lpnu.ua</p>
-            <p>Data analyst</p>
-        </header>
-        <main>
+<div class="container">
 
-            <section>
-                <h2>Про мене</h2>
-                <p>
-                    Прагну розвивати практичні навички аналізу даних та застосовувати аналітичне мислення для вирішення бізнес-завдань.
-                </p>
-            </section>
+  <!-- HEADER -->
+  <header>
+    <h1>Легенчук Олександр</h1>
+    <p>м. Львів, Україна | +380 96 910 78 22</p>
+    <p><a href="/c<p>oleksandr.lehenchuk.kb.2023@lpnu.ua | Data Analyst</p>
+  </header>
 
-            <section>
-                <h2>Досвід</h2>
-                <h3 className=>Стартап — Data Analyst / Bot Developer</h3>
-                 <p className=>Жовтень 2024 - Січень 2025</p>
-                <ul className=>
-            <li>Збір та аналіз даних з різних джерел</li>
-            <li>Розробка та тестування Telegram-ботів</li>
-            </section>
+  <main style="display:flex;flex-direction:column;gap:1.5rem;">
+ 
+    <section>
+      <h2>Про мене</h2>
+      <p>Прагну розвивати практичні навички аналізу даних та застосовувати аналітичне мислення для вирішення бізнес-завдань.</p>
+    </section>
 
-            <section>
-                <h2>Освіта</h2>
-                     <h3 className=>Національний університет "Львівська політехніка"</h3>
-                     <p className=>Кібербезпека та захист інформації</p>
-                     <p className=>2023 - 2027</p>
-            </section>
+   
+    <section>
+      <h2>Досвід</h2>
+      <h3>Стартап — Data Analyst / Bot Developer</h3>
+      <p>Жовтень 2024 – Січень 2025</p>
+      <ul>
+        <li>Збір та аналіз даних з різних джерел</li>
+        <li>Розробка та тестування Telegram-ботів</li>
+      </ul>
+    </section>
 
-        </main>
 
-        <section>
-            <h2>Навички</h2>
-            <ul>
-                <li>SQL</li>
-                <li>OSINT</li>
-                <li>Google Sheets/Excel</li>
-                <li>Командна робота</li>
-                <li>Англійська B1</li>
-            </ul>
+    <section>
+      <h2>Освіта</h2>
+      <h3>Національний університет "Львівська політехніка"</h3>
+      <p>Кібербезпека та захист інформації</p>
+      <p>2023 – 2027</p>
+    </section>
 
-        </section>
 
-    </div>
+    <section>
+      <h2>Навички</h2>
+      <ul>
+        <li>SQL</li>
+        <li>OSINT</li>
+        <li>Google Sheets / Excel</li>
+        <li>Командна робота</li>
+        <li>Англійська B1</li>
+      </ul>
+    </section>
 
+    <section>
+      <h2>Відгуки роботодавців</h2>
+      <p id="reviews-loading">Завантаження відгуків…</p>
+      <div id="reviews-list"></div>
+    </section>
+  </main>
+
+
+  <footer>
+    <h2>Системна інформація</h2>
+    <div id="sys-info"></div>
+  </footer>
+
+</div>
+
+
+<div id="modal-overlay">
+  <div id="modal">
+    <button id="modal-close" aria-label="Закрити">✕</button>
+    <h3>Зворотній зв'язок</h3>
+
+    <form action="https://formspree.io/f/mjgprwwv" method="POST" id="contact-form">
+      <div class="form-group">
+        <label>Ім'я</label>
+        <input type="text" name="name" placeholder="Іван Петренко" required />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="ivan@example.com" required />
+      </div>
+      <div class="form-group">
+  
+        <input type="tel" name="phone" placeholder="+380 XX XXX XXXX" />
+      </div>
+      <div class="form-group">
+
+        <textarea name="message" placeholder="Ваше повідомлення…" required></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Відправити</button>
+    </form>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
+// 1. СИСТЕМНА ІНФОРМАЦІЯ → localStorage → footer
+
+(function() {
+  const info = {
+    userAgent:  navigator.userAgent,
+    platform:   navigator.platform,
+    language:   navigator.language,
+    cookiesOn:  navigator.cookieEnabled ? 'Так' : 'Ні',
+    screenRes:  screen.width + ' × ' + screen.height,
+    colorDepth: screen.colorDepth + ' bit',
+    online:     navigator.onLine ? 'Так' : 'Ні',
+    timezone:   Intl.DateTimeFormat().resolvedOptions().timeZone,
+  };
+  localStorage.setItem('sysInfo', JSON.stringify(info));
+
+  const labels = {
+    userAgent: 'User Agent', platform: 'Платформа', language: 'Мова',
+    cookiesOn: 'Cookies', screenRes: 'Роздільна здатність',
+    colorDepth: 'Глибина кольору', online: 'Онлайн', timezone: 'Часовий пояс',
+  };
+
+  const container = document.getElementById('sys-info');
+  for (const [key, val] of Object.entries(info)) {
+    const row = document.createElement('div');
+    row.className = 'sys-row';
+    row.innerHTML = '<span class="sys-key">' + (labels[key] || key) + '</span><span class="sys-val">' + val + '</span>';
+    container.appendChild(row);
+  }
+})();
+
+
+// 2. ВІДГУКИ З API (варіант 10)
+
+(async function() {
+  const loadingEl = document.getElementById('reviews-loading');
+  const listEl    = document.getElementById('reviews-list');
+  try {
+    const res  = await fetch('https://jsonplaceholder.typicode.com/posts/10/comments');
+    const data = await res.json();
+    loadingEl.style.display = 'none';
+    data.forEach(function(c) {
+      const card = document.createElement('div');
+      card.className = 'review-card';
+      card.innerHTML =
+        '<div class="review-name">'  + c.name  + '</div>' +
+        '<div class="review-email">' + c.email + '</div>' +
+        '<div class="review-body">'  + c.body  + '</div>';
+      listEl.appendChild(card);
+    });
+  } catch(e) {
+    loadingEl.textContent = 'Помилка завантаження відгуків.';
+  }
+})();
+
+
+// 3. МОДАЛЬНЕ ВІКНО (через 1 хвилину)
+
+var overlay  = document.getElementById('modal-overlay');
+var closeBtn = document.getElementById('modal-close');
+
+if (!sessionStorage.getItem('modalShown')) {
+  setTimeout(function() { overlay.classList.add('active'); }, 60000);
+}
+closeBtn.addEventListener('click', function() {
+  overlay.classList.remove('active');
+  sessionStorage.setItem('modalShown', 'true');
+});
+overlay.addEventListener('click', function(e) {
+  if (e.target === overlay) {
+    overlay.classList.remove('active');
+    sessionStorage.setItem('modalShown', 'true');
+  }
+});
+document.getElementById('contact-form').addEventListener('submit', function() {
+  sessionStorage.setItem('modalShown', 'true');
+});
+
+
+// 4. ПЕРЕМИКАЧ ДЕНЬ / НІЧ
+
+var root     = document.getElementById('html-root');
+var themeBtn = document.getElementById('theme-btn');
+
+function applyTheme(theme) {
+  if (theme === 'dark') {
+    root.setAttribute('data-theme', 'dark');
+    themeBtn.textContent = '☀ Денна';
+  } else {
+    root.removeAttribute('data-theme');
+    themeBtn.textContent = '☾ Нічна';
+  }
+  localStorage.setItem('theme', theme);
+}
+
+var saved = localStorage.getItem('theme');
+if (saved) {
+  applyTheme(saved);
+} else {
+  var h = new Date().getHours();
+  applyTheme(h >= 7 && h < 21 ? 'light' : 'dark');
+} 
+
+themeBtn.addEventListener('click', function() {
+  var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+});
+</script>
 </body>
 </html>
