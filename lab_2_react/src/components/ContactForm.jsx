@@ -10,7 +10,7 @@ export default function ContactForm() {
 
     const timer = setTimeout(() => {
       setIsOpen(true);
-    }, 60_000); 
+    }, 10_000); 
 
     return () => clearTimeout(timer);
   }, []);
@@ -40,12 +40,18 @@ export default function ContactForm() {
           Зворотній зв'язок
         </h3>
 
-        <form
-          action={FORMSPREE_URL}
-          method="POST"
-          onSubmit={handleClose}
-          className="space-y-4"
-        >
+       <form
+        className="space-y-4"
+        onSubmit={(e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          fetch(FORMSPREE_URL, {
+            method: 'POST',
+            body: formData,
+            headers: { Accept: 'application/json' }
+          }).then(() => handleClose());
+        }}
+      >
           <div>
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
               Ім'я

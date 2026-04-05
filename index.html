@@ -162,7 +162,7 @@ var overlay  = document.getElementById('modal-overlay');
 var closeBtn = document.getElementById('modal-close');
 
 if (!sessionStorage.getItem('modalShown')) {
-  setTimeout(function() { overlay.classList.add('active'); }, 60000);
+  setTimeout(function() { overlay.classList.add('active'); }, 10000);
 }
 closeBtn.addEventListener('click', function() {
   overlay.classList.remove('active');
