@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import Header from './components/Header';
+import Header from './components/Header';        // замінений на ThreeHeader
 import Objective from './components/Objective';
 import Experience from './components/Experience';
 import Education from './components/Education';
-import Skills from './components/Skills';
+import Skills from './components/Skills';        // замінений на ThreeSkills
 import Footer from './components/Footer';
 import Reviews from './components/Reviews';
 import ContactForm from './components/ContactForm';
+import DataGlobe from './components/DataGlobe';  // НОВИЙ компонент
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -34,7 +35,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
-      {/* Кнопка перемикання теми */}
       <div className="fixed top-4 right-4 z-50">
         <button
           onClick={toggleTheme}
@@ -46,19 +46,26 @@ function App() {
 
       <div className="py-12 px-4 flex justify-center font-sans">
         <div className="max-w-3xl w-full space-y-8">
+
+          {/* ── Шапка з частинками Three.js ── */}
           <Header />
+
           <main className="space-y-6">
             <Objective />
             <Experience />
+
+            {/* ── 3D Глобус між секціями ── */}
+            <DataGlobe />
+
             <Education />
             <Skills />
             <Reviews />
           </main>
+
           <Footer />
         </div>
       </div>
 
-      {/* Модальне вікно (з'являється через 1 хвилину) */}
       <ContactForm />
     </div>
   );
