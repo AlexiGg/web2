@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
- 
+
+// підписи для полів
 const LABELS = {
   userAgent:  'User Agent',
   platform:   'Платформа',
@@ -10,7 +11,8 @@ const LABELS = {
   online:     'Онлайн',
   timezone:   'Часовий пояс',
 };
- 
+
+// збір інформації про систему
 function collectSysInfo() {
   return {
     userAgent:  navigator.userAgent,
@@ -23,28 +25,43 @@ function collectSysInfo() {
     timezone:   Intl.DateTimeFormat().resolvedOptions().timeZone,
   };
 }
- 
+
 export default function Footer() {
+
+  // стан з даними
   const [sysInfo, setSysInfo] = useState({});
- 
+
   useEffect(() => {
     const info = collectSysInfo();
+
+    // зберігаємо в localStorage
     localStorage.setItem('sysInfo', JSON.stringify(info));
+
+    // оновлюємо state
     setSysInfo(info);
+
   }, []);
- 
+
   return (
-    <footer className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow p-6 mt-4">
-      <h2 className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-4">
+    <footer className="bg-white dark:bg-slate-800 border rounded-2xl shadow p-6 mt-4">
+
+      <h2 className="text-xs font-bold uppercase mb-4">
         Системна інформація
       </h2>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+
+        {/* вивід ключ-значення */}
         {Object.entries(sysInfo).map(([key, val]) => (
           <div key={key} className="flex gap-2 text-sm">
-            <span className="font-semibold text-slate-700 dark:text-slate-300 min-w-[160px]">
+
+            {/* назва */}
+            <span className="font-semibold min-w-[160px]">
               {LABELS[key] ?? key}:
             </span>
-            <span className="text-slate-500 dark:text-slate-400 break-all">{val}</span>
+
+            {/* значення */}
+            <span className="break-all">{val}</span>
           </div>
         ))}
       </div>
