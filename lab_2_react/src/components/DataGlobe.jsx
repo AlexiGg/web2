@@ -185,11 +185,6 @@ export default function DataGlobe() {
 
       {/* canvas для 3D */}
       <canvas ref={canvasRef} />
-
-      {/* текст */}
-      <div>
-        <h3>Аналіз даних</h3>
-      </div>
     </div>
   );
 }
